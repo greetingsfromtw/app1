@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    div(style='float:left;margin:10px;')
+        a(href = '/') Home
+
+    div(style='float:right')
+        if (accountname && logined)            
+            span(style='margin:10px;') #{accountname},歡迎
+            a(href='/users/logout',style='margin:10px;') 登出
+
+        else    
+            a(href='/users/login',style='margin:10px;') 登入
+            a(href='/users/register',style='margin:10px;') 註冊
+
+    div(style='padding:30px')
+        h1 Index Page
