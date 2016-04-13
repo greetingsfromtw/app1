@@ -1,5 +1,4 @@
-extends ../layout/basic
-
+extends ../layout/nav
 
 
 block content
@@ -15,20 +14,11 @@ block content
         br
         br
 
-    ul
-    for a in [1,2,3,4,5]
-        li= a
-
-    var b = #{todo}
-    p b
-    
-
-
-     // for todo in todos.reverse
-        div
-            input(value=todo.content id='getcontent' readonly)
-            a(href='todo/delete/'+todo.id style='margin:10px;') del
-            a(href='todo/edit/'+todo.id style='margin:5px;') edit
-
+    if todos
+        for todo,index in todos.reverse()
+            div
+                input(value=todo.item id='getcontent' readonly)
+                a(href='/todo/delete/'+todo.id style='margin:10px;') del
+                a(href='/todo/edit/'+todo.id style='margin:5px;') edit
 
 

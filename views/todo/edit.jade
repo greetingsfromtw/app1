@@ -1,27 +1,21 @@
-extends layout/basic
+extends ../layout/basic
 
 block content
 	br
 	br
 	h3= title	
 	
-	form(action="/add" method = "POST")
-		div 輸入待辦事項:
-		input(type="text" name="add") 
-		br
-		br
-
 
 	for todo,index in todos.reverse()
 		div
 		if todo.id == getid
-			form(action='/update/'+todo.id method='POST')
-				input(type='text' name='getcontent' value=todo.content)
+			form(action='/todo/update/'+todo.id method='POST')
+				input(type='text' name='getitem' value=todo.item)
 				button(type='submit') save
 		else
 			input(value=todo.content readonly)
-			a(href='/delete/'+todo.id style='margin:10px;') del
-			a(href='/edit/'+todo.id style='margin:5px;') edit
+			a(href='/todo/delete/'+todo.id style='margin:10px;') del
+			a(href='/todo/edit/'+todo.id style='margin:5px;') edit
 
 
 
