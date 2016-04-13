@@ -9,6 +9,7 @@ var cookieSession = require('cookie-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var apis = require('./routes/apis');
+var todo = require('./routes/todo');
 
 var app = express();
 
@@ -32,6 +33,9 @@ app.use(cookieSession({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/apis',apis);
+app.use('/todo',todo);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

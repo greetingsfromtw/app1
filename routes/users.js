@@ -26,4 +26,10 @@ router.get('/logout',function(req,res,next){
 	res.redirect('/');
 	res.end();
 });
+
+//使用者設定頁面
+router.get('/profile',function(req,res,next){
+	res.render('users/profile');
+
+});
 module.exports = router;

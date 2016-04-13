@@ -1,4 +1,4 @@
-extends ../layout
+extends ../layout/basic
 
 block content
 
@@ -21,9 +21,8 @@ block content
                 label
                   input(name='remember', type='checkbox', value='Remember Me')
                   | 記住我
-                
-               button.btn.btn-success.btn-block(type='submit') 登入
 
+                button.btn.btn-success.btn-block(type='submit') 登入
       .panel
-        p 新使用者嗎?
+        h4 新使用者嗎?
          a(href='/users/register' style="padding:10px") 註冊

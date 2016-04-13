@@ -1,0 +1,34 @@
+extends ../layout/basic
+
+
+
+block content
+    br
+    br
+    h3 Todo List
+    a(href='/') 回首頁
+    br
+    br
+    form(action="/todo/add" method = "POST")
+        div 輸入待辦事項:
+        input(type="text" name="add") 
+        br
+        br
+
+    ul
+    for a in [1,2,3,4,5]
+        li= a
+
+    var b = #{todo}
+    p b
+    
+
+
+     // for todo in todos.reverse
+        div
+            input(value=todo.content id='getcontent' readonly)
+            a(href='todo/delete/'+todo.id style='margin:10px;') del
+            a(href='todo/edit/'+todo.id style='margin:5px;') edit
+
+
+

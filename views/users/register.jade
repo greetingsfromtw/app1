@@ -1,4 +1,4 @@
-extends ../layout
+extends ../layout/basic
 
 block content
 
@@ -16,10 +16,12 @@ block content
                 value= '#{tempname}')
               .form-group
                 label #{pwdalert}
-                input.form-control(placeholder='輸入密碼', name='password', type='password')
+                input.form-control(placeholder='輸入密碼', name='password', type='password',
+                value= '')
                 
-               button.btn.btn-success.btn-block(type='submit') 註冊
-
+                label
+                
+                button.btn.btn-success.btn-block(type='submit') 註冊
       .panel
-        p 已有帳號?
+        h4 已有帳號?
          a(href='/users/login' style="padding:10px") 登入
