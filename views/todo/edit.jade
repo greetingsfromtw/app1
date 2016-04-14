@@ -1,21 +1,41 @@
-extends ../layout/basic
+extends ../layout/nav
 
 block content
-	br
-	br
-	h3= title	
-	
+    .row(style='padding-top:50px;')
+        .col-md-6.col-md-offset-3
+             
+            h3   Todo List
+            form(role = 'form' action="/todo/add" method = "POST")                
+                div.col-xs-7
+                    div 請輸入待辦事項:
+                    input.form-control(type="text" name="add") 
+                    br
+                    br
 
-	for todo,index in todos.reverse()
-		div
-		if todo.id == getid
-			form(action='/todo/update/'+todo.id method='POST')
-				input(type='text' name='getitem' value=todo.item)
-				button(type='submit') save
-		else
-			input(value=todo.content readonly)
-			a(href='/todo/delete/'+todo.id style='margin:10px;') del
-			a(href='/todo/edit/'+todo.id style='margin:5px;') edit
+            - todos.forEach( function ( todo ){
+
+                if todo.id == getid  
+                    div.col-xs-7
+                        form(role = 'form' action='/todo/update/'+todo.id method='POST')
+                            input.form-control(type='text' name='getitem' value=todo.item)
+                    div.col-xs-2
+                        a(href='/todo/delete/'+todo.id style='') 刪除
+                        
+                else
+                    div.col-xs-7
+                        input.form-control(value=todo.item type="text" readonly 
+                        style='padding:10px;')
+                    div.col-xs-2
+                       a(href='/todo/edit/'+todo.id style='') 編輯
+                       a(href='/todo/delete/'+todo.id style='margin:5px;') 刪除
+            - }) 
+
+
+
+
+
+
+
 
 
 

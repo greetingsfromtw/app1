@@ -53,7 +53,6 @@ router.get('/delete/:id', function(req, res, next) {
 router.get('/edit/:id', function(req, res, next) {
   Todo.find({ _id: req.params.id }, function ( err, todos, count ){
     res.render( 'todo/edit', {
-      title:'todo list testing',
       todos:todos,
       getid:req.params.id
     });

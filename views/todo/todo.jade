@@ -1,24 +1,26 @@
 extends ../layout/nav
 
-
 block content
-    br
-    br
-    h3 Todo List
-    a(href='/') 回首頁
-    br
-    br
-    form(action="/todo/add" method = "POST")
-        div 輸入待辦事項:
-        input(type="text" name="add") 
-        br
-        br
+    .row(style='padding-top:50px;')
+        .col-md-6.col-md-offset-3
+             
+            h3   Todo List
+            form(role = 'form' action="/todo/add" method = "POST")               
+                div.col-xs-7
+                    div 請輸入待辦事項:
+                    input.form-control(type="text" name="add") 
+                    br
+                    br
 
-    if todos
-        for todo,index in todos.reverse()
-            div
-                input(value=todo.item id='getcontent' readonly)
-                a(href='/todo/delete/'+todo.id style='margin:10px;') del
-                a(href='/todo/edit/'+todo.id style='margin:5px;') edit
+
+            if todos
+                for todo,index in todos.reverse()
+                    div.col-xs-7
+                        input.form-control(value=todo.item type="text" readonly)
+                    div.col-xs-2
+                       a(href='/todo/edit/'+todo.id) 編輯
+                       a(href='/todo/delete/'+todo.id style='margin:5px;') 刪除
+
+
 
 
