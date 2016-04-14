@@ -8,10 +8,7 @@ var router = express.Router();
 var Users = mongoose.model('Users');
 var bcrypt= require('bcrypt-nodejs');
 
-var isValidpwd = function(user,password){
-  return bcrypt.compareSync(password,user.password);
-};
-
+//use bcrypt to encrypt password
 var createHash = function(password){
   return bcrypt.hashSync(password,bcrypt.genSaltSync(10),null)
 };
@@ -60,9 +57,6 @@ router.post('/register', function(req, res, next) {
   });
 });
 
-//bCrypt.compareSync(getpwd, Users.password)
-
-
 //使用者登入會員功能
 router.post('/login',function(req,res,next){
   var getname = req.body.accountname;
@@ -70,34 +64,34 @@ router.post('/login',function(req,res,next){
     Users.findOne({accountname:getname},function(err,existUsername){
         if(err) throw err;
         if(existUsername){
+          
+          //retrieve encoded password from DB
           var hash = existUsername.password;
-          console.log(hash);
-          Users.findOne({
-            password:getpwd
-          },function(err,existPwd){
-            console.log(getpwd);
+
+          //applying bcrypt method to check if the password is correct or not
+          var check = bcrypt.compareSync(getpwd,hash)
+          
             if(err) throw err;
-            if(existPwd){
-                //res.send('account correct')              
+            if(check){
+                //accountname and password correct              
                 req.session.logined = true;
                 req.session.accountname = req.body.accountname;
                 res.redirect('/');
-            }else{//else existPwd
+            }else{//else check
                     var tn = req.body.accountname;
                     res.render('users/login',{
                       tempname:tn, 
                       pwdalert:'密碼錯誤,請重新輸入'
-                    });
-                  }
-              });
+                    })
+                  }//end else
             }else{//else existUsername
               res.render('users/login',{
                 tempname:'',
                 namealert:'使用者名稱錯誤或不存在'
                 })
-              }//end if
+              }//end else
 
-      });//end Users.findOne({})
+      })//end Users.findOne({})
   });
 
 

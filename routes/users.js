@@ -7,29 +7,36 @@ var router = express.Router();
 
 //使用者註冊頁面
 router.get('/register',function(req,res,next){
-	res.render('users/register',{
-		tempname:''
-	});
+    res.render('users/register',{
+        tempname:''
+    });
 });
 
 //使用者登入頁面
 router.get('/login',function(req,res,next){
-	res.render('users/login',{
-		tempname:''
-	});
+    res.render('users/login',{
+        tempname:''
+    });
 });
 
 //使用者登出頁面
 router.get('/logout',function(req,res,next){
-	req.session.logined = false;
-	req.session.username = '';
-	res.redirect('/');
-	res.end();
+    req.session.logined = false;
+    req.session.username = '';
+    res.redirect('/');
+    res.end();
 });
 
 //使用者設定頁面
 router.get('/profile',function(req,res,next){
-	res.render('users/profile');
+
+    if(!req.session.logined){
+        res.redirect('/users/login')
+    };
+    res.locals.logined= req.session.logined;
+    res.locals.accountname= req.session.accountname;
+
+    res.render('users/profile');
 
 });
 module.exports = router;
