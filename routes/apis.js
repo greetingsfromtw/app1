@@ -6,7 +6,15 @@ var express = require('express'),
 var router = express.Router();
 
 var Users = mongoose.model('Users');
+var bcrypt= require('bcrypt-nodejs');
 
+var isValidpwd = function(user,password){
+  return bcrypt.compareSync(password,user.password);
+};
+
+var createHash = function(password){
+  return bcrypt.hashSync(password,bcrypt.genSaltSync(10),null)
+};
 
 //使用者註冊功能
 router.post('/register', function(req, res, next) {
@@ -15,6 +23,7 @@ router.post('/register', function(req, res, next) {
   Users.findOne({
     accountname: getname,
   }, function(err, existUser) {
+
     if (err) throw err;
     if (getname === '') { 
             res.render('users/register',{
@@ -39,7 +48,7 @@ router.post('/register', function(req, res, next) {
       // create new user
       Users.create({
         accountname: req.body.accountname,
-        password: req.body.password,
+        password: createHash(req.body.password),
       }, function(err, newUser) {
         if (err) throw err;
         console.log('the registered user is', newUser);
@@ -51,6 +60,8 @@ router.post('/register', function(req, res, next) {
   });
 });
 
+//bCrypt.compareSync(getpwd, Users.password)
+
 
 //使用者登入會員功能
 router.post('/login',function(req,res,next){
@@ -59,9 +70,13 @@ router.post('/login',function(req,res,next){
     Users.findOne({accountname:getname},function(err,existUsername){
         if(err) throw err;
         if(existUsername){
-          Users.findOne({password:getpwd},function(err,existPwd){
+          var hash = existUsername.password;
+          console.log(hash);
+          Users.findOne({
+            password:getpwd
+          },function(err,existPwd){
+            console.log(getpwd);
             if(err) throw err;
-
             if(existPwd){
                 //res.send('account correct')              
                 req.session.logined = true;
